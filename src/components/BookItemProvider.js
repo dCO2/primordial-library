@@ -11,14 +11,14 @@ function BookItemProvider(props){
   }
 
   const [apiLibrary, setapiLibrary] = useState([]);
+  const [apiParamsQuery, setApiParamsQuery] = useState("jungle");
+  const [apiParamFilter, setApiParamFilter] = useState("free-ebooks");
+  const [apiParamMaxResults, setApiParamMaxResults] = useState(40);
   const initialUserLibrary = [];
   const [state, dispatch] = useReducer(BookItemActionReducer, initialUserLibrary);
   const [loading, setLoading] = useState(true);
 
-  const apiParamsQuery = "flowers"
-  const apiParamFilter = "free-ebooks"
-  const apiParamMaxResults = 10
-  const apiParamKey = "AIzaSyA0qHnVgE_9Vu3qxX2k_9A8vIdTEhALQXw"
+  const apiParamKey = process.env.REACT_APP_API_KEY;
   const API = "https://www.googleapis.com/books/v1/volumes?q="+
               apiParamsQuery+"&filter="+apiParamFilter+"&maxResults="+
               apiParamMaxResults+"&key="+apiParamKey;
@@ -64,6 +64,12 @@ function BookItemProvider(props){
       state,
       loading,
       apiLibrary,
+      apiParamsQuery,
+      apiParamFilter,
+      apiParamMaxResults,
+      setApiParamsQuery,
+      setApiParamFilter,
+      setApiParamMaxResults,
       getQueriedApiLibrary,
       addBookToUserLibrary,
       moveBookInUserLibrary,
